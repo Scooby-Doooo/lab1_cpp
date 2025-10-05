@@ -19,13 +19,11 @@ public:
         }
     }
 
-    Cell operator()() {
+    Cell operator()() const {
         return Cell(cellIndexDist(randomGenerator), cellIndexDist(randomGenerator));
     }
 
-    int getBoardSize() {
-        return board_size;
-    }
+    int getBoardSize() const { return board_size; }
 };
 
 #endif
