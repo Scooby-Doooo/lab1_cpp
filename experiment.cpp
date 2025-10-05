@@ -1,6 +1,5 @@
 #include "experiment.h"
 #include <iostream>
-#include <format>
 #include <algorithm>
 #include "board.h"
 #include "random_cell_generator.h"
