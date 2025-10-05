@@ -8,6 +8,8 @@ struct Cell {
     Cell(int r = 0, int c = 0);
     
     bool operator==(const Cell& other) const;
+    
+    bool operator<(const Cell& other) const;
 };
 
 #endif
