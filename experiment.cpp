@@ -5,9 +5,16 @@
 #include "random_cell_generator.h"
 
 Experiment::Experiment(int n, int experiments)
-    : board_size(n), num_experiments(experiments) {}
+    : board_size(n), num_experiments(experiments) {
+    if (n <= 0 || experiments <= 0) {
+        throw std::invalid_argument("Invalid experiment parameters");
+    }
+}
 
 ExperimentResult Experiment::run(int m) {
+    if (m < 0 || m > board_size * board_size) {
+        throw std::invalid_argument("Invalid number of cells to select");
+    }
 
     std::vector<int> free_zone_sizes;
     free_zone_sizes.reserve(num_experiments);
