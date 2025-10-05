@@ -2,6 +2,7 @@
 #define RANDOM_CELL_GENERATOR_H
 
 #include <random>
+#include <stdexcept>
 #include "cell.h"
 
 class RandomCellGenerator {
@@ -11,16 +12,18 @@ class RandomCellGenerator {
     mutable std::uniform_int_distribution<int> cellIndexDist;
 
 public:
-    RandomCellGenerator(int size, int seed = std::random_device{}())
-        : board_size(size), randomGenerator(seed), cellIndexDist(0, size - 1) {}
+    RandomCellGenerator(int size, unsigned int seed = std::random_device{}())
+        : board_size(size), randomGenerator(seed), cellIndexDist(0, size - 1) {
+        if (size <= 0) {
+            throw std::invalid_argument("Board size must be positive");
+        }
+    }
 
-    Cell operator()() {
+    Cell operator()() const {
         return Cell(cellIndexDist(randomGenerator), cellIndexDist(randomGenerator));
     }
 
-    int getBoardSize() {
-        return board_size;
-    }
+    int getBoardSize() const { return board_size; }
 };
 
 #endif

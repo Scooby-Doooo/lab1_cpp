@@ -2,6 +2,7 @@
 #define EXPERIMENT_H
 
 #include <vector>
+#include "board.h"
 #include "random_cell_generator.h"
 
 struct ExperimentResult {
@@ -18,7 +19,7 @@ class Experiment {
 public:
     Experiment(int n, int experiments = 1000);
 
-    ExperimentResult run(int m);
+    ExperimentResult run(int m) const;
 };
 
 #endif
