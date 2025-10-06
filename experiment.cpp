@@ -13,7 +13,7 @@ Experiment::Experiment(int n, int experiments)
     }
 }
 
-ExperimentResult Experiment::run(int m) {
+ExperimentResult Experiment::run(int m) const {
     if (m < 0 || m > board_size * board_size) {
         throw std::invalid_argument("Invalid number of cells to select");
     }
