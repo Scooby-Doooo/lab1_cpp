@@ -2,6 +2,7 @@
 #include <iostream>
 #include <format>
 #include <algorithm>
+#include <numeric>
 #include <stdexcept>
 #include "board.h"
 #include "random_cell_generator.h"
@@ -55,7 +56,7 @@ void Experiment::analyzeMDependence(int max_m, int step) const {
 
     std::cout << std::format("{:>10} {:>15} {:>15} {:>15} {:>20}\n",
         "m", "m/(n^2)", "Average", "Median", "% free zone");
-    for (int i = 0; i < 75; ++i) std::cout << '-';
+    for (int i = 0; i < 80; ++i) std::cout << '-';
     std::cout << "\n";
 
     for (int m = 0; m <= max_m; m += step) {
