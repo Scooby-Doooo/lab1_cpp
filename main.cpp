@@ -9,6 +9,9 @@
 #include "board.h"
 #include "experiment.h"
 
+// Forward declaration
+int getIntInput(const std::string& prompt, int min_val, int max_val);
+
 void projectInfo()
 {
     std::cout << "The project was completed by students of the K27 group, Dmytro Vivtonichenko and Yaroslav Kucher\n";
@@ -52,7 +55,6 @@ void experiment1()
     std::cout << "Max. free zone size: "
         << *std::max_element(result.free_zone_sizes.begin(),
             result.free_zone_sizes.end()) << "\n";
-    break;
 }
 
 void experiment2()
@@ -69,7 +71,6 @@ void experiment2()
 
     Experiment exp(n, num_exp);
     exp.analyzeMDependence(max_m, step);
-    break;
 }
 
 void experiment3()
@@ -87,34 +88,39 @@ void experiment3()
         std::cout << "Cell " << (i + 1) << ": ("
             << cell.row << ", " << cell.col << ")\n";
     }
-    break;
 }
 
 void endOfProgram()
 {
     std::cout << "Program termination.\n";
-    return 0;
 }
 
 void menuImplementation(int choice)
 {
     switch (choice) {
         // Conducting a single experiment with specified parameters and displaying statistics
-    case 1: { experiment1(); }
+    case 1:
+        experiment1();
+        break;
 
-          // Analyzing the dependency of free zone size on the number of occupied cells
-    case 2: { experiment2(); }
+    // Analyzing the dependency of free zone size on the number of occupied cells
+    case 2:
+        experiment2();
+        break;
 
-          // Demonstration of random cell coordinate generator operation
-    case 3: { experiment3(); }
+    // Demonstration of random cell coordinate generator operation
+    case 3:
+        experiment3();
+        break;
 
-          // Program termination
-    case 4: { endOfProgram(); }
-        
+    // Program termination
+    case 4:
+        endOfProgram();
+        break;
     }
 }
 
-int getIntInput(const std::string& prompt, int min_val = 1, int max_val = INT_MAX) {
+int getIntInput(const std::string& prompt, int min_val, int max_val) {
     int value;
     while (true) {
         std::cout << prompt;
