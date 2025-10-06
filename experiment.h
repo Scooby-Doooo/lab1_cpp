@@ -20,6 +20,7 @@ public:
     Experiment(int n, int experiments = 1000);
 
     ExperimentResult run(int m) const;
+    void analyzeMDependence(int max_m, int step = 1) const;
 };
 
 #endif

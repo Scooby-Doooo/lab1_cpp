@@ -1,6 +1,8 @@
 #include "experiment.h"
 #include <iostream>
+#include <format>
 #include <algorithm>
+#include <stdexcept>
 #include "board.h"
 #include "random_cell_generator.h"
 
@@ -44,4 +46,27 @@ ExperimentResult Experiment::run(int m) {
     }
 
     return { mean, median, free_zone_sizes };
+}
+
+void Experiment::analyzeMDependence(int max_m, int step) const {
+    std::cout << "\n=== Analysis of free zone size dependence on m ===\n";
+    std::cout << "Board size: " << board_size << "x" << board_size << "\n";
+    std::cout << "Number of experiments for each m: " << num_experiments << "\n\n";
+
+    std::cout << std::format("{:>10} {:>15} {:>15} {:>15} {:>20}\n",
+        "m", "m/(n^2)", "Average", "Median", "% free zone");
+    for (int i = 0; i < 75; ++i) std::cout << '-';
+    std::cout << "\n";
+
+    for (int m = 0; m <= max_m; m += step) {
+        ExperimentResult result = run(m);
+        double percent_free = (result.mean / (board_size * board_size)) * 100;
+
+        std::cout << std::format("{:>10} {:>15.2f} {:>15.2f} {:>15.2f} {:>18.1f}%\n",
+            m,
+            static_cast<double>(m) / (board_size * board_size),
+            result.mean,
+            result.median,
+            percent_free);
+    }
 }
