@@ -24,6 +24,20 @@ void printMenu() {
     std::cout << "4. Exit\n";
     std::cout << "Choose option: ";
 }
+
+int getIntInput(const std::string& prompt, int min_val = 1, int max_val = INT_MAX) {
+    int value;
+    while (true) {
+        std::cout << prompt;
+        if (std::cin >> value && value >= min_val && value <= max_val) {
+            return value;
+        }
+        std::cout << "Incorrect input. Please try again.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
+
 void experiment1()
 {
     int n = getIntInput("Enter board size n (from 1 to 500): ", 1, 500);
@@ -52,7 +66,6 @@ void experiment1()
     std::cout << "Max. free zone size: "
         << *std::max_element(result.free_zone_sizes.begin(),
             result.free_zone_sizes.end()) << "\n";
-    break;
 }
 
 void experiment2()
@@ -69,7 +82,6 @@ void experiment2()
 
     Experiment exp(n, num_exp);
     exp.analyzeMDependence(max_m, step);
-    break;
 }
 
 void experiment3()
@@ -87,44 +99,42 @@ void experiment3()
         std::cout << "Cell " << (i + 1) << ": ("
             << cell.row << ", " << cell.col << ")\n";
     }
-    break;
 }
 
 void endOfProgram()
 {
     std::cout << "Program termination.\n";
-    return 0;
 }
 
-void menuImplementation(int choice)
+bool menuImplementation(int choice)
 {
     switch (choice) {
         // Conducting a single experiment with specified parameters and displaying statistics
-    case 1: { experiment1(); }
+    case 1: {
+        experiment1();
+        break;
+    }
 
           // Analyzing the dependency of free zone size on the number of occupied cells
-    case 2: { experiment2(); }
+    case 2: {
+        experiment2();
+        break;
+    }
 
           // Demonstration of random cell coordinate generator operation
-    case 3: { experiment3(); }
+    case 3: {
+        experiment3();
+        break;
+    }
 
           // Program termination
-    case 4: { endOfProgram(); }
+    case 4: {
+        endOfProgram();
+        return true;
+    }
         
     }
-}
-
-int getIntInput(const std::string& prompt, int min_val = 1, int max_val = INT_MAX) {
-    int value;
-    while (true) {
-        std::cout << prompt;
-        if (std::cin >> value && value >= min_val && value <= max_val) {
-            return value;
-        }
-        std::cout << "Incorrect input. Please try again.\n";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
+	return false;
 }
 
 int main() {
@@ -135,7 +145,7 @@ int main() {
             printMenu();
             int choice = getIntInput("", 1, 4);
             
-            menuImplementation(choice);
+            if(menuImplementation(choice)) return 0;
         }
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

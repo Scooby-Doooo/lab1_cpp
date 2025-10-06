@@ -2,6 +2,7 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#include <stdexcept>
 #include "cell.h"
 
 void Board::addNeighbors(const Cell& cell) {
